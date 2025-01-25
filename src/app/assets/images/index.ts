@@ -7,7 +7,7 @@ import image6 from './images6.jpg'
 import image7 from './images7.jpg'
 import qeysLogo from "./QeysLogo.webp"
 import img from "./Img.png"
-import img2 from "./Img2.png"
+import img2 from "./img2.png"
 import img3 from "./Img3.png"
 import imgPartners from "./ImgPartners.png"
 import agent from "./agent.png"
