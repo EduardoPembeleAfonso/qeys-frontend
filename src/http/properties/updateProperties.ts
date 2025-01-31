@@ -1,11 +1,11 @@
-import { Api, authorId } from "@/app/api/Axios";
+import { Api } from "@/app/api/Axios";
 import IProperties from "@/utils/interface/properties.interfaces";
 import { toast } from "sonner";
 import colors from "tailwindcss/colors";
 
-export async function createProperties(image: any, address: string, price: string, numberBathrooms: string,
+export async function updateProperties(id: string, image: any, address: string, price: string, numberBathrooms: string,
   numberBedrooms: string, areaProperty: string,
-  title: string, description: string, coordinates: string, selectedOption: string) : Promise<IProperties | null> {
+  title: string, description: string, coordinates: string, selectedOption: string): Promise<IProperties | null> {
   try {
     const form = new FormData();
     form.append("address", address);
@@ -20,12 +20,12 @@ export async function createProperties(image: any, address: string, price: strin
     if (image) {
       form.append("photo", image);
     }
-    await Api.post(`/properties/${authorId}`, form, {
+    await Api.put(`/properties/${id}`, form, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
-    toast("Propriedade registrada com sucesso", {
+    toast("Propriedade editada com sucesso", {
       style: {
         backgroundColor: colors.violet[800],
         color: colors.white,
@@ -33,8 +33,9 @@ export async function createProperties(image: any, address: string, price: strin
       },
     });
     return null;
-  } catch {
-    toast("Houve uma falha em registrar a propriedade!", {
+  } catch (e) {
+    console.log({ error: e })
+    toast("Houve uma falha em editar a propriedade!", {
       style: {
         backgroundColor: colors.red[600],
         color: colors.white,

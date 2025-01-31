@@ -28,7 +28,7 @@ export default function Aside({ isOpen, onMenuToggle }: AsideProps) {
 
   return (
     <aside className={`fixed z-30 bg-primaryColor px-6 py-11 shadow-md transform transition-transform ${isOpen ? "translate-x-0 w-[40%] bg-opacity-80" : "-translate-x-full"
-      } lg:translate-x-0 lg:w-[106px]`}>
+      } lg:translate-x-0 lg:w-[106px] h-full`}>
       <div className={`w-[50px] h-[50px] ${ newPathname === "home" && "lg:mt-[0px]" }`}>
         <div className="hidden lg:block w-full h-full">
           <Image

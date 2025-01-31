@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/dialog";
 import { motion } from "framer-motion"
 import { BathIcon, DoorOpenIcon, HomeIcon, MapPinIcon } from "lucide-react";
-import { formateCurrency } from "@/utils/functions/formatCurrency";
 import { useState } from "react";
 import DateScheduling from "./DateScheduling";
 import { createScheduling } from "@/http/scheduling/createScheduling";
@@ -113,7 +112,7 @@ export default function PropertiesInfo({ ...props }: IProperties) {
                   <span className="text-cardTextSecondaryColor text-sm font-normal font-Montserrat">{props.address}.</span>
                 </div>
                 <div>
-                  <span className="text-textColor text-sm font-bold font-MontserratBold">{formateCurrency(props.price)}</span>
+                  <span className="text-textColor text-sm font-bold font-MontserratBold">{props.price}</span>
                   <span className="text-cardTextSecondaryColor text-sm font-normal font-Montserrat">/mês</span>
                 </div>
               </div>
