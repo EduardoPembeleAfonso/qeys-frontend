@@ -59,7 +59,7 @@ export default function Page() {
   const handleChangePrice = (e: any) => {
     let value = e.target.value;
     value = value.replace(/[^0-9]/g, "");
-    let formattedValue = new Intl.NumberFormat("pt-AO", {
+    const formattedValue = new Intl.NumberFormat("pt-AO", {
       style: "decimal",
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
