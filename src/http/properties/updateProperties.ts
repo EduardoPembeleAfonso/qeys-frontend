@@ -33,8 +33,7 @@ export async function updateProperties(id: string, image: any, address: string, 
       },
     });
     return null;
-  } catch (e) {
-    console.log({ error: e })
+  } catch {
     toast("Houve uma falha em editar a propriedade!", {
       style: {
         backgroundColor: colors.red[600],

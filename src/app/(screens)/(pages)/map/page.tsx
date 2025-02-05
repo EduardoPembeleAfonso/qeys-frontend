@@ -3,7 +3,6 @@ import { getProperties } from "@/http/properties/getProperties";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { BathIcon, DoorOpenIcon, HomeIcon, MapPinIcon, SearchIcon } from "lucide-react";
-import { formateCurrency } from '../../../../utils/functions/formatCurrency';
 import IProperties from "@/utils/interface/properties.interfaces";
 import Aside from "@/app/components/AsideClient";
 import PropertiesMapSkeletonLoader from "@/app/components/PropertiesMapSkeletonLoader";
@@ -119,7 +118,7 @@ export default function Page() {
                             <span className="text-cardTextSecondaryColor text-sm font-normal font-Montserrat">{item.address}</span>
                           </div>
                           <div>
-                            <span className="text-textColor text-sm font-bold font-MontserratBold">{formateCurrency(item.price)}</span>
+                            <span className="text-textColor text-sm font-bold font-MontserratBold">{item.price}</span>
                             <span className="text-cardTextSecondaryColor text-sm font-normal font-Montserrat">/mês</span>
                           </div>
                         </div>
@@ -159,7 +158,7 @@ export default function Page() {
                             <span className="text-cardTextSecondaryColor text-sm font-normal font-Montserrat">{item.address}</span>
                           </div>
                           <div>
-                            <span className="text-textColor text-sm font-bold font-MontserratBold">{formateCurrency(item.price)}</span>
+                            <span className="text-textColor text-sm font-bold font-MontserratBold">{item.price}</span>
                             <span className="text-cardTextSecondaryColor text-sm font-normal font-Montserrat">/mês</span>
                           </div>
                         </div>

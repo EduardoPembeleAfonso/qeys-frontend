@@ -11,6 +11,7 @@ interface AvatarProps {
   fallback: string
   width?: string
   height?: string
+  className?: string
 }
 
 export default function Avatar({
@@ -18,11 +19,12 @@ export default function Avatar({
   fallback,
   width,
   height,
+  className,
 }: AvatarProps) {
   return (
     <AvatarContainer style={{ width: `${width}`, height: `${height}` }}>
       <AvatarImage src={image} />
-      <AvatarFallback className="bg-primaryColor">
+      <AvatarFallback className={`bg-primaryColor ${className}`}>
         {getInitials(fallback)}
       </AvatarFallback>
     </AvatarContainer>

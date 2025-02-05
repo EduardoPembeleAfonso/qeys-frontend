@@ -2,10 +2,11 @@
 import Image from "next/image";
 import { useAuth } from "../contexts/ContextProvider";
 import { qeysLogo } from "../assets/images";
-import { CalendarDaysIcon, InfoIcon, LayoutGrid, LogOutIcon, MapIcon } from "lucide-react";
+import { CalendarDaysIcon, InfoIcon, LayoutGrid, LogOutIcon, MapIcon, BanknoteIcon } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import { USER_TYPES } from "@/utils/enums/userTypes.enum";
 
 interface AsideProps {
   isOpen: boolean;
@@ -13,7 +14,8 @@ interface AsideProps {
 }
 
 export default function Aside({ isOpen, onMenuToggle }: AsideProps) {
-  const { onLogout } = useAuth();
+  const { onLogout, authState } = useAuth();
+  const user = authState?.author;
   const pathname = usePathname();
   const newPathname = pathname.replace("/", "").toString();
   const [showButton, setShowButton] = useState(false);
@@ -29,7 +31,7 @@ export default function Aside({ isOpen, onMenuToggle }: AsideProps) {
   return (
     <aside className={`fixed z-30 bg-primaryColor px-6 py-11 shadow-md transform transition-transform ${isOpen ? "translate-x-0 w-[40%] bg-opacity-80" : "-translate-x-full"
       } lg:translate-x-0 lg:w-[106px] h-full`}>
-      <div className={`w-[50px] h-[50px] ${ newPathname === "home" && "lg:mt-[0px]" }`}>
+      <div className={`w-[50px] h-[50px] ${newPathname === "home" && "lg:mt-[0px]"}`}>
         <div className="hidden lg:block w-full h-full">
           <Image
             src={qeysLogo}
@@ -63,20 +65,31 @@ export default function Aside({ isOpen, onMenuToggle }: AsideProps) {
       </div>
       <nav className="mt-[50px] mb-8 lg:mb-0 h-auto lg:mt-[70px] lg:h-[226px] flex flex-col gap-5 items-start lg:items-center">
         <Link href={"/home"} className={`transition duration-700 ease-in-out lg:w-[50px] lg:px-0 px-2 w-full h-[50px] rounded-lg flex items-center justify-around lg:justify-center ${newPathname === "home" ? "bg-secondaryColor" : "bg-transparent"}`}>
-          <LayoutGrid color={`${ newPathname === "home" ? "#38BDF8" : "#ffffff" }`} className="w-[28px] h-[28px] lg:w-[34px] lg:h-[34px]" />
+          <LayoutGrid color={`${newPathname === "home" ? "#38BDF8" : "#ffffff"}`} className="w-[28px] h-[28px] lg:w-[34px] lg:h-[34px]" />
           <span className="text-secondaryColor text-base font-normal font-Montserrat block lg:hidden">Início</span>
         </Link>
         <Link href={"/map"} className={`transition duration-700 ease-in-out lg:w-[50px] lg:px-0 px-2 w-full h-[50px] rounded-lg hidden lg:flex items-center justify-around lg:justify-center ${newPathname === "map" ? "bg-secondaryColor" : "bg-transparent"}`}>
-          <MapIcon color={`${ newPathname === "map" ? "#38BDF8" : "#ffffff" }`} className="w-[28px] h-[28px] lg:w-[34px] lg:h-[34px]" />
+          <MapIcon color={`${newPathname === "map" ? "#38BDF8" : "#ffffff"}`} className="w-[28px] h-[28px] lg:w-[34px] lg:h-[34px]" />
           <span className="text-secondaryColor text-base font-normal font-Montserrat block lg:hidden">Mapa</span>
         </Link>
-        <Link href={"/scheduling"} className={`transition duration-700 ease-in-out mt-2 lg:mt-0 lg:w-[50px] lg:px-0 px-2 w-full h-[50px] rounded-lg flex items-center justify-around lg:justify-center ${newPathname === "scheduling" ? "bg-secondaryColor" : "bg-transparent"}`}>
-          <CalendarDaysIcon color={`${ newPathname === "scheduling" ? "#38BDF8" : "#ffffff" }`} className="w-[28px] h-[28px] lg:w-[34px] lg:h-[34px]" />
-          <span className="text-secondaryColor text-base font-normal font-Montserrat block lg:hidden">Agenda</span>
-        </Link>
+
+        {
+          user?.type === USER_TYPES.OWNER ? (
+            <Link href={"/bank-accounts"} className={`transition duration-700 ease-in-out lg:w-[50px] lg:px-0 px-2 w-full h-[50px] rounded-lg hidden lg:flex items-center justify-around lg:justify-center ${newPathname === "map" ? "bg-secondaryColor" : "bg-transparent"}`}>
+              <BanknoteIcon color={`${newPathname === "map" ? "#38BDF8" : "#ffffff"}`} className="w-[28px] h-[28px] lg:w-[34px] lg:h-[34px]" />
+              <span className="text-secondaryColor text-base font-normal font-Montserrat block lg:hidden">Contas Bancarias</span>
+            </Link>
+          ) : (
+            <Link href={"/scheduling"} className={`transition duration-700 ease-in-out mt-2 lg:mt-0 lg:w-[50px] lg:px-0 px-2 w-full h-[50px] rounded-lg flex items-center justify-around lg:justify-center ${newPathname === "scheduling" ? "bg-secondaryColor" : "bg-transparent"}`}>
+              <CalendarDaysIcon color={`${newPathname === "scheduling" ? "#38BDF8" : "#ffffff"}`} className="w-[28px] h-[28px] lg:w-[34px] lg:h-[34px]" />
+              <span className="text-secondaryColor text-base font-normal font-Montserrat block lg:hidden">Agenda</span>
+            </Link>
+          )
+
+        }
       </nav>
       <div className="h-[1px] lg:w-[50px] w-[100px] border-0 lg:mb-8 mb-5 bg-[#CBC5C5]"></div>
-      <Link href={"/"} className={`lg:w-[50px] lg:px-0 px-2 w-full h-[50px] rounded-lg flex items-center justify-around lg:justify-center ${newPathname === "profile" ? "bg-white" : "bg-transparent"}`}>
+      <Link href={"/profile"} className={`lg:w-[50px] lg:px-0 px-2 w-full h-[50px] rounded-lg flex items-center justify-around lg:justify-center ${newPathname === "profile" ? "bg-white" : "bg-transparent"}`}>
         <InfoIcon color="#CBC5C5" className="w-[28px] h-[28px] lg:w-[34px] lg:h-[34px]" />
         <span className="text-secondaryColor text-base font-normal font-Montserrat block lg:hidden">Perfil</span>
       </Link>
