@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useAuth } from "../contexts/ContextProvider";
 import { qeysLogo } from "../assets/images";
-import { CalendarDaysIcon, InfoIcon, LayoutGrid, LogOutIcon, MapIcon, BanknoteIcon } from "lucide-react";
+import { CalendarDaysIcon, InfoIcon, LayoutGrid, LogOutIcon, MapIcon, CreditCard } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
@@ -64,7 +64,7 @@ export default function Aside({ isOpen, onMenuToggle }: AsideProps) {
         </div>
       </div>
       <nav className="mt-[50px] mb-8 lg:mb-0 h-auto lg:mt-[70px] lg:h-[226px] flex flex-col gap-5 items-start lg:items-center">
-        <Link href={"/home"} className={`transition duration-700 ease-in-out lg:w-[50px] lg:px-0 px-2 w-full h-[50px] rounded-lg flex items-center justify-around lg:justify-center ${newPathname === "home" ? "bg-secondaryColor" : "bg-transparent"}`}>
+        <Link href={ user?.type === USER_TYPES.OWNER ? "/dashboard" : "/home"} className={`transition duration-700 ease-in-out lg:w-[50px] lg:px-0 px-2 w-full h-[50px] rounded-lg flex items-center justify-around lg:justify-center ${newPathname === "home" ? "bg-secondaryColor" : "bg-transparent"}`}>
           <LayoutGrid color={`${newPathname === "home" ? "#38BDF8" : "#ffffff"}`} className="w-[28px] h-[28px] lg:w-[34px] lg:h-[34px]" />
           <span className="text-secondaryColor text-base font-normal font-Montserrat block lg:hidden">Início</span>
         </Link>
@@ -76,7 +76,7 @@ export default function Aside({ isOpen, onMenuToggle }: AsideProps) {
         {
           user?.type === USER_TYPES.OWNER ? (
             <Link href={"/bank-accounts"} className={`transition duration-700 ease-in-out lg:w-[50px] lg:px-0 px-2 w-full h-[50px] rounded-lg hidden lg:flex items-center justify-around lg:justify-center ${newPathname === "map" ? "bg-secondaryColor" : "bg-transparent"}`}>
-              <BanknoteIcon color={`${newPathname === "map" ? "#38BDF8" : "#ffffff"}`} className="w-[28px] h-[28px] lg:w-[34px] lg:h-[34px]" />
+              <CreditCard color={`${newPathname === "map" ? "#38BDF8" : "#ffffff"}`} className="w-[28px] h-[28px] lg:w-[34px] lg:h-[34px]" />
               <span className="text-secondaryColor text-base font-normal font-Montserrat block lg:hidden">Contas Bancarias</span>
             </Link>
           ) : (

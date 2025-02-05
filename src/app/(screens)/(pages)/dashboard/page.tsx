@@ -46,6 +46,12 @@ export default function Page() {
   const [selectedOption, setSelectedOption] = useState("false");
   const [isLoadingDelete, setIsLoadingDelete] = useState<boolean>(false);
 
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ["propertiesDashboard"],
+    queryFn: getProperties,
+    staleTime: 1000 * 60,
+  });
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedOption(e.target.value);
   };
@@ -94,6 +100,7 @@ export default function Page() {
     setNumberBathrooms("");
     setNumberBedrooms("");
     setIsLoading(false);
+    refetch();
     setOpen(false);
   }
 
@@ -114,15 +121,15 @@ export default function Page() {
       selectedOption
     );
     setIsLoading(false);
+    refetch();
     setOpenEdit(false);
   }
 
   async function handleDelete() {
     setIsLoadingDelete(true);
-    await deleteProperties(
-      propertyId,
-    );
+    await deleteProperties(propertyId);
     setIsLoadingDelete(false);
+    refetch();
     onCloseModalInfo();
   }
 
@@ -160,12 +167,6 @@ export default function Page() {
   };
 
   const onCloseModalEdit = () => setOpenEdit(false);
-
-  const { data, isLoading } = useQuery({
-    queryKey: ["propertiesPage"],
-    queryFn: getProperties,
-    staleTime: 1000 * 60,
-  });
 
   const onMenuToggle = () => {
     setIsAsideOpen(!isAsideOpen);

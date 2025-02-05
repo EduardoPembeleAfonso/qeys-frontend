@@ -1,4 +1,4 @@
-import { Api } from "@/app/api/Axios";
+import { Api, AUTHOR_KEY } from "@/app/api/Axios";
 import { USER_TYPES } from "@/utils/enums/userTypes.enum";
 import IUser from "@/utils/interface/user.interfaces";
 import { toast } from "sonner";
@@ -13,11 +13,13 @@ export async function updateUser(id: string, image: any, name: string, email: st
     if (image) {
       form.append("image", image);
     }
-    await Api.put(`/user/${id}`, form, {
+    const response = await Api.put(`/user/${id}`, form, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
+    const user: IUser = response.data;
+    localStorage.setItem(AUTHOR_KEY, JSON.stringify(user));
     toast("Perfil editado com sucesso!", {
       style: {
         backgroundColor: colors.violet[800],
